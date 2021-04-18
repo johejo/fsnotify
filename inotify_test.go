@@ -337,7 +337,7 @@ func TestInotifyInnerMapLength(t *testing.T) {
 	}
 	go func() {
 		for err := range w.Errors {
-			t.Fatalf("error received: %s", err)
+			panic(fmt.Sprintf("error received: %s", err))
 		}
 	}()
 

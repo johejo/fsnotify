@@ -7,6 +7,7 @@
 package fsnotify
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -178,7 +179,7 @@ func TestPollerConcurrent(t *testing.T) {
 		for {
 			ok, err := poller.wait()
 			if err != nil {
-				t.Fatalf("poller failed: %v", err)
+				panic(fmt.Sprintf("poller failed: %v", err))
 			}
 			oks <- ok
 			if !<-live {

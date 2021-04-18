@@ -7,6 +7,7 @@
 package fsnotify
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -76,7 +77,7 @@ func TestFsnotifyMultipleOperations(t *testing.T) {
 	// Receive errors on the error channel on a separate goroutine
 	go func() {
 		for err := range watcher.Errors {
-			t.Fatalf("error received: %s", err)
+			panic(fmt.Sprintf("error received: %s", err))
 		}
 	}()
 
@@ -839,7 +840,7 @@ func TestRemovalOfWatch(t *testing.T) {
 	go func() {
 		select {
 		case ev := <-watcher.Events:
-			t.Fatalf("We received event: %v\n", ev)
+			panic(fmt.Sprintf("We received event: %v\n", ev))
 		case <-time.After(500 * time.Millisecond):
 			t.Log("No event received, as expected.")
 		}
